@@ -1,35 +1,19 @@
 
 #include "Nodo.h"
+
+
 int main() {
 
-	char op = 0;
-	bool stop = true;
-	while (stop == true) {
-		cout << "1.**Crear Lista**" << endl;
-		cout << "2.**Imprimir Lista**" << endl;
-		cout << "3.Salir" << endl;
-		cin >> op;
+	int size;
+	Node* root = 0;
 
-		switch (op)
-		{
-		case '1':
-			int x;
-			cout << "Cantidad de Nombres que desea agregar?\n";
-			cin >> x;
-			UtilidadesListaEnlazada::crearLista(x);
-			stop = true;
-			break;
-		case'2':
-			UtilidadesListaEnlazada::imprimir(0);
-			stop = true;
-			break;
-		case '3':
-			stop = false;
-			break;
-		
-		}
-	}
+	cout << "Ingrese el tamano de la lista: ";
+	cin >> size;
+
+	root = UtilidadesListaEnlazada::crearLista(size);
+
+	UtilidadesListaEnlazada::imprimir(root);
+
+	system("pause");
+
 }
-
-
-

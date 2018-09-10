@@ -1,70 +1,88 @@
 #include "Nodo.h"
 
-void UtilidadesListaEnlazada::Insertar(nodo **inicio, char *n)
-{
+void  UtilidadesListaEnlazada::insertar(Node *&root, const char* value) {
 
+	Node *newNode = new Node();
+	newNode->name = _strdup(value);
+	newNode->next = 0;
+	newNode->prev = 0;
 
-
-
-	nodo* nuevo = new nodo;
-	nuevo->name = new char[strlen(n)];
-	strcpy_s(nuevo->name, strlen(n) + 1, n);
-	nuevo->next = 0;
-	nuevo->prev = 0;
-
-	if (*inicio == 0) {
-		*inicio = nuevo;
-	}
-	else {
-		nodo* tmp = *inicio;
-		if (strcmp(tmp->name, nuevo->name) < 0) {
-			tmp->next->prev = nuevo;
-			nuevo->next = tmp->next;
-			nuevo->prev = tmp;
-			tmp->next = nuevo;
-		}
-		else if (strcmp(tmp->name, nuevo->name) > 0) {
-			Insertar(&tmp->next, n);
-		}
-	}
-
-}
-
-nodo ** UtilidadesListaEnlazada::crearLista(int size)
-{
-
-	int contador = 0;
-	nodo ** raiz = 0;
-	nodo *nuevo = new nodo;
-		do{
-
-			cout << "Ingrese nombre \n";
-			cin >> nuevo->name;
-			Insertar(raiz, nuevo->name);
-			contador++;
-
-
-
-
-		} while (contador <= size);
-
-
-	return raiz ;
-}
-
-void UtilidadesListaEnlazada::imprimir(nodo **inicio)
-{
-
-	if (*inicio == 0)
+	if (root == 0) {
+		root = newNode;
 		return;
+	}
 	else
 	{
-		nodo *tmp = *inicio;
 
-		printf("%s\n", tmp->name);
-		imprimir(&tmp->next);
-		
+		Node *tmp = root;
+		Node *helper = 0;
+
+		while (tmp != 0) {
+
+
+			int i = strcmp(value, tmp->name);
+
+			if (i < 0) {
+
+				if (helper != 0)
+					helper->next = newNode;
+				else {
+
+					newNode->next = root;
+					root = newNode;
+
+					return;
+				}
+
+				newNode->next = tmp;
+				tmp = newNode;
+				tmp->prev = newNode;
+
+				return;
+			}
+
+			helper = tmp;
+			tmp = tmp->next;
+		}
+		helper->next = newNode;
+		tmp = newNode;
+		newNode->prev = helper;
+		return;
+	}
+
+
+}
+
+void UtilidadesListaEnlazada::imprimir(Node *&root) {
+
+	cout << "\nImprimiendo Lista\n";
+
+	Node *tmp = root;
+
+	while (tmp != 0) {
+
+		cout << tmp->name << " ";
+
+		tmp = tmp->next;
+	}
+
+	cout << endl;
+}
+
+Node* UtilidadesListaEnlazada::crearLista(int size) {
+
+	string nombre;
+	Node* root = 0;
+
+	for (int i = 0; i < size; i++) {
+
+		cout << "Ingrese nombre: ";
+		cin >> nombre;
+		insertar(root, nombre.c_str());
 
 	}
+
+	return root;
 }
+
 

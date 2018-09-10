@@ -1,26 +1,22 @@
-#pragma once
 
-
-#include<string>
-#include<iostream>
+#include <iostream>
+#include <string>
 using namespace std;
 
-struct nodo
+struct Node
 {
 	char *name;
-	nodo *next;
-	nodo *prev;
+	Node *next;
+	Node *prev;
 
 };
+
 
 class UtilidadesListaEnlazada {
+public:
 
-public :
-
-	static void Insertar(nodo **, char *);
-	static nodo ** crearLista(int);
-	static void imprimir(nodo**);
+	static void insertar(Node *&root, const char* value);
+	static void imprimir(Node *&root);
+	static Node* crearLista(int size);
 
 };
-
-
